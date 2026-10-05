@@ -1,0 +1,44 @@
+[package]
+name = "minimind"
+version = "0.1.0"
+edition = "2021"
+authors = ["MiniMind Contributors"]
+description = "A lightweight, minimal Large Language Model implementation in native Rust using Candle."
+license = "Apache-2.0"
+
+[dependencies]
+candle-core = "0.8.4"
+candle-nn = "0.8.4"
+candle-transformers = "0.8.4"
+tokenizers = "0.21.0"
+clap = { version = "4.5", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+rand = "0.8"
+
+[features]
+default = []
+metal = ["candle-core/metal", "candle-nn/metal", "candle-transformers/metal"]
+accelerate = ["candle-core/accelerate", "candle-nn/accelerate", "candle-transformers/accelerate"]
+cuda = ["candle-core/cuda", "candle-nn/cuda", "candle-transformers/cuda"]
+
+[[bin]]
+name = "minimind-cli"
+path = "src/bin/eval.rs"
+
+[[bin]]
+name = "train-pretrain"
+path = "src/bin/train_pretrain.rs"
+
+[[bin]]
+name = "train-sft"
+path = "src/bin/train_sft.rs"
+
+[[bin]]
+name = "convert-weights"
+path = "src/bin/convert.rs"
+
+[lib]
+name = "minimind"
+path = "src/lib.rs"
